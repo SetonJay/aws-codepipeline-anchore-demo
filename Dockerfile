@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:6
 RUN mkdir -p /home/node/ && apt-get update && apt-get -y install curl
 COPY ./app/ /home/node/app/
 
