@@ -16,14 +16,14 @@ phases:
 
   post_build:
     commands:
-      - anchore-cli image add setonorungbe/node_critical_fail:latest
+      - anchore-cli image add setonorungbe/node_critical_fail:node6
       - echo "Waiting for image to finish analysis"
-      - anchore-cli image wait setonorungbe/node_critical_fail:latest
+      - anchore-cli image wait setonorungbe/node_critical_fail:node6
       - echo "Analysis complete"
-      - anchore-cli image vuln setonorungbe/node_critical_fail:latest
+      - anchore-cli image vuln setonorungbe/node_critical_fail:node6
       - echo "Waiting for image to finish vulnerability scan"
-      - anchore-cli image wait setonorungbe/node_critical_fail:latest
+      - anchore-cli image wait setonorungbe/node_critical_fail:node6
       - echo "vulnerability scan complete"
-      - if [ "$ANCHORE_FAIL_ON_POLICY" = "true" ] ; then anchore-cli evaluate check setonorungbe/node_critical_fail:latest  ; fi
+      - if [ "$ANCHORE_FAIL_ON_POLICY" = "false" ] ; then anchore-cli evaluate check setonorungbe/node_critical_fail:node6  ; fi
       - echo "Pushing image to Docker Hub"
       - docker push setonorungbe/node_critical_fail
