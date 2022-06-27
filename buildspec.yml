@@ -11,6 +11,7 @@ phases:
       - docker login -u $dockerhubUser -p $dockerhubPass
   build:
     commands:
+      - sudo dockerd
       - docker build -t setonorungbe/node_critical_fail .
       - docker push setonorungbe/node_critical_fail
 
