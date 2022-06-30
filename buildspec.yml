@@ -20,10 +20,11 @@ phases:
       - echo "Waiting for image to finish analysis"
       - anchore-cli image wait setonorungbe/node_critical_fail:node6
       - echo "Analysis complete"
-      - anchore-cli image content setonorungbe/node_critical_fail:node6 os
-      - anchore-cli image vuln setonorungbe/node_critical_fail:node6 all
-      - anchore-cli image wait setonorungbe/node_critical_fail:node6
+      - anchore-cli image content setonorungbe/node_critical_fail:node6 os > content_node_critical_fail
+      - anchore-cli image vuln setonorungbe/node_critical_fail:node6 all > vuln_node_critical_fail
       - echo "results of the SBOM and vulnerability scan complete!"
+      #- aws s3 cp content_node_critical_fail s3://kunle-test/Anchore/
+      #- aws s3 cp vuln_node_critical_fail s3://kunle-test/Anchore/
       - if [ "$ANCHORE_FAIL_ON_POLICY" = "true" ] ; then anchore-cli evaluate check setonorungbe/node_critical_fail:node6  ; fi
       - echo "Pushing image to Docker Hub"
       - docker push setonorungbe/node_critical_fail:node6
