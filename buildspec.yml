@@ -16,6 +16,9 @@ phases:
 
   post_build:
     commands:
+      - ls
+      - mkdir anchore
+      - cd anchore
       - anchore-cli image add setonorungbe/node_critical_fail:node6
       - echo "Waiting for image to finish analysis"
       - anchore-cli image wait setonorungbe/node_critical_fail:node6
