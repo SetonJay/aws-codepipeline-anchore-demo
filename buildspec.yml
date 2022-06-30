@@ -28,8 +28,11 @@ phases:
       - echo "results of the SBOM and vulnerability scan complete!"
       - anchore-cli image wait setonorungbe/node_critical_fail:node6
       - echo "Analysis complete"
+      - echo "Pushing image to Docker Hub"
+      - docker push setonorungbe/node_critical_fail:node6
+  
+  upload_report:
+    commands:
       - aws s3 cp content_node_critical_fail.txt s3://kunle-test/Anchore/
       - aws s3 cp vuln_node_critical_fail.txt s3://kunle-test/Anchore/
       - echo "results of the SBOM and vulnerability sent to S3!"
-      - echo "Pushing image to Docker Hub"
-      - docker push setonorungbe/node_critical_fail:node6
