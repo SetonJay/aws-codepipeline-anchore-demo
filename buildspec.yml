@@ -31,7 +31,7 @@ phases:
       - echo "Pushing image to Docker Hub"
       - docker push setonorungbe/node_critical_fail:node6
   
-  upload_report:
+  artifacts:
     commands:
       - aws s3 cp content_node_critical_fail.txt s3://kunle-test/Anchore/
       - aws s3 cp vuln_node_critical_fail.txt s3://kunle-test/Anchore/
