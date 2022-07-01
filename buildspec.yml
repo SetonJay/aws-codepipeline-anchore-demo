@@ -23,8 +23,8 @@ phases:
       - echo "Waiting for image to finish analysis"
       - anchore-cli image wait setonorungbe/node_critical_fail:node6
       - echo "Analysis complete"
-      - anchore-cli image content setonorungbe/node_critical_fail:node6 os |& tee content_node_critical_fail.txt
-      - anchore-cli image vuln setonorungbe/node_critical_fail:node6 all |& tee vuln_node_critical_fail.txt
+      - anchore-cli image content setonorungbe/node_critical_fail:node6 os | tee content_node_critical_fail.txt
+      - anchore-cli image vuln setonorungbe/node_critical_fail:node6 all | tee vuln_node_critical_fail.txt
       - echo "results of the SBOM and vulnerability scan complete!"
       - sleep 3m
       - echo "Pushing image to Docker Hub"
