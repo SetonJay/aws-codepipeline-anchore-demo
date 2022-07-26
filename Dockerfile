@@ -1,10 +1,19 @@
-FROM node:6
-RUN mkdir -p /home/node/ && apt-get update && apt-get -y install curl
-COPY ./app/ /home/node/app/
+FROM ubuntu:18.04
 
-# DEV NOTE: remember to re-enable healthcheck and remove debugging port 22 before final push!
+# Install dependencies
+RUN apt-get update && \
+ apt-get -y install apache2
 
-# HEALTHCHECK CMD curl --fail http://localhost:8081/ || exit 1
-EXPOSE 8081 22
+# Install apache and write hello world message
+RUN echo 'Hello World!' > /var/www/html/index.html
 
-CMD node /home/node/app/server.js
+# Configure apache
+RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
+ echo 'mkdir -p /var/run/apache2' >> /root/run_apache.sh && \
+ echo 'mkdir -p /var/lock/apache2' >> /root/run_apache.sh && \ 
+ echo '/usr/sbin/apache2 -D FOREGROUND' >> /root/run_apache.sh && \ 
+ chmod 755 /root/run_apache.sh
+
+EXPOSE 80
+
+CMD /root/run_apache.sh
